@@ -1,0 +1,22 @@
+{
+  "name": "folder-tree",
+  "version": "0.0.0",
+  "description": "Read folder recursively",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha tests/"
+  },
+  "keywords": [
+    "fs",
+    "folder",
+    "tree",
+    "recursive"
+  ],
+  "author": "Guilherme Nagatomo",
+  "license": "MIT"
+}

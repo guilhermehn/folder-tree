@@ -1,0 +1,4 @@
+{
+  "ignore_folders": [".git", "node_modules", "bower_components"],
+  "ignore_file_patterns": []
+}
