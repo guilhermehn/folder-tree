@@ -11,6 +11,10 @@
   "scripts": {
     "test": "mocha tests/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:guilhermehn/folder-tree.git"
+  },
   "keywords": [
     "fs",
     "folder",
