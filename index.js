@@ -1,9 +1,12 @@
 var fs = require('fs')
   , path = require('path')
   , _ = require('lodash')
-  , config = require('./config.json')
+  , defaults = require('./conf.json')
+  , conf
 
-function FolderTree (root) {
+function FolderTree (root, _conf) {
+  conf = _conf ? conf : defaults
+
   this.path = path.resolve(root)
   this.files = []
   this.folders = []
