@@ -2,10 +2,9 @@ var fs = require('fs')
   , path = require('path')
   , _ = require('lodash')
   , defaults = require('./conf.json')
-  , conf
 
 function FolderTree (root, _conf) {
-  conf = typeof _conf !== 'undefined' ? _conf : defaults
+  this.conf = typeof _conf !== 'undefined' ? _conf : defaults
 
   this.path = path.resolve(root)
   this.files = []
@@ -34,9 +33,9 @@ FolderTree.prototype.readContents = function () {
   })
 
   // filter for allowed folders
-  if (conf.ignore_folders) {
+  if (parent.conf.ignore_folders) {
     allowedFolders = folders.filter(function foldersFilter (folder) {
-      return conf.ignore_folders.indexOf(path.basename(folder)) === -1
+      return parent.conf.ignore_folders.indexOf(path.basename(folder)) === -1
     })
   }
 
@@ -48,8 +47,8 @@ FolderTree.prototype.readContents = function () {
     .map(path.basename) // use only basename
 
   // ignore files by pattern
-  if (conf.ignore_file_patterns) {
-    conf.ignore_file_patterns.forEach(function eachPattern (pattern) {
+  if (parent.conf.ignore_file_patterns) {
+    parent.conf.ignore_file_patterns.forEach(function eachPattern (pattern) {
       files = files.filter(function filesPatternFilter (file) {
         return !file.match(new RegExp(pattern))
       })
@@ -61,7 +60,7 @@ FolderTree.prototype.readContents = function () {
 
   // store folders
   this.folders = (allowedFolders ? allowedFolders : folders).map(function allowedFoldersMap (folder) {
-    var subfolder = new FolderTree(folder, conf)
+    var subfolder = new FolderTree(folder, parent.conf)
     subfolder.parent = parent
 
     return subfolder
