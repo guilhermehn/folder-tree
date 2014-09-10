@@ -67,4 +67,12 @@ FolderTree.prototype.readContents = function () {
   })
 }
 
+FolderTree.prototype.updateConf = function (newConf) {
+  Object
+    .keys(newConf)
+    .forEach(function eachKey (key) {
+      this.conf[key] = newConf[key]
+    }.bind(this))
+}
+
 module.exports = FolderTree
