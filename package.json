@@ -6,7 +6,9 @@
   "dependencies": {
     "lodash": "^2.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^1.9.1"
+  },
   "scripts": {
     "test": "mocha tests/"
   },

@@ -34,7 +34,7 @@ FolderTree.prototype.readContents = function () {
 
   // filter for allowed folders
   allowedFolders = folders.filter(function foldersFilter (folder) {
-    return config.ignore_folders.indexOf(path.basename(folder)) === -1
+    return conf.ignore_folders.indexOf(path.basename(folder)) === -1
   })
 
   // Filter files
@@ -45,7 +45,7 @@ FolderTree.prototype.readContents = function () {
     .map(path.basename) // use only basename
 
   // ignore files by pattern
-  config.ignore_file_patterns.forEach(function eachPattern (pattern) {
+  conf.ignore_file_patterns.forEach(function eachPattern (pattern) {
     files = files.filter(function filesPatternFilter (file) {
       return !file.match(new RegExp(pattern))
     })
@@ -55,7 +55,7 @@ FolderTree.prototype.readContents = function () {
   this.files = files
 
   this.folders = allowedFolders.map(function allowedFoldersMap (folder) {
-    var subfolder = new FolderTree(folder)
+    var subfolder = new FolderTree(folder, conf)
     subfolder.parent = parent
 
     return subfolder
@@ -63,5 +63,3 @@ FolderTree.prototype.readContents = function () {
 }
 
 module.exports = FolderTree
-
-console.log(require('util').inspect(new FolderTree('..'), { depth: null }))
