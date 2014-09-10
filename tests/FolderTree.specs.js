@@ -15,4 +15,10 @@ describe('FolderTree', function () {
   it('should maintain a reference to the parent folder for each subdirectory', function () {
     expect(tree.folders[0].parent.path).to.be.equal(tree.path)
   })
+
+  it('should accept a options object as argument', function () {
+    var tree = new FolderTree('.', { ignore_file_patterns: ['.*\.json$'] })
+
+    expect(tree.files.length).to.be.equal(3)
+  })
 })
