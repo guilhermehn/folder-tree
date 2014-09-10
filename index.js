@@ -5,12 +5,13 @@ var fs = require('fs')
   , conf
 
 function FolderTree (root, _conf) {
-  conf = _conf ? conf : defaults
+  conf = typeof _conf !== 'undefined' ? _conf : defaults
 
   this.path = path.resolve(root)
   this.files = []
   this.folders = []
 
+  // Initialize folder tree
   this.readContents()
 }
 
@@ -33,9 +34,11 @@ FolderTree.prototype.readContents = function () {
   })
 
   // filter for allowed folders
-  allowedFolders = folders.filter(function foldersFilter (folder) {
-    return conf.ignore_folders.indexOf(path.basename(folder)) === -1
-  })
+  if (conf.ignore_folders) {
+    allowedFolders = folders.filter(function foldersFilter (folder) {
+      return conf.ignore_folders.indexOf(path.basename(folder)) === -1
+    })
+  }
 
   // Filter files
   files = paths
@@ -45,16 +48,19 @@ FolderTree.prototype.readContents = function () {
     .map(path.basename) // use only basename
 
   // ignore files by pattern
-  conf.ignore_file_patterns.forEach(function eachPattern (pattern) {
-    files = files.filter(function filesPatternFilter (file) {
-      return !file.match(new RegExp(pattern))
+  if (conf.ignore_file_patterns) {
+    conf.ignore_file_patterns.forEach(function eachPattern (pattern) {
+      files = files.filter(function filesPatternFilter (file) {
+        return !file.match(new RegExp(pattern))
+      })
     })
-  })
+  }
 
   // store files
   this.files = files
 
-  this.folders = allowedFolders.map(function allowedFoldersMap (folder) {
+  // store folders
+  this.folders = (allowedFolders ? allowedFolders : folders).map(function allowedFoldersMap (folder) {
     var subfolder = new FolderTree(folder, conf)
     subfolder.parent = parent
 
