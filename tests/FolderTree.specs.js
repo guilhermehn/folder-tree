@@ -21,4 +21,14 @@ describe('FolderTree', function () {
 
     expect(tree.files.length).to.be.equal(3)
   })
+
+  describe('#updateConf(object)', function () {
+    it('should update the configuration object from the instance', function () {
+      var tree = new FolderTree('.')
+      tree.updateConf({ ignore_file_patterns: ['.*\.json$'] })
+      tree.readContents()
+
+      expect(tree.files.length).to.be.equal(3)
+    })
+  })
 })
