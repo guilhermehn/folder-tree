@@ -7,7 +7,12 @@
     "lodash": "^2.4.1"
   },
   "devDependencies": {
-    "chai": "^1.9.1"
+    "chai": "^1.9.1",
+    "gulp": "^3.8.9",
+    "gulp-jscs": "^1.2.1",
+    "gulp-jshint": "^1.8.6",
+    "gulp-load-plugins": "^0.7.0",
+    "jshint-stylish": "^1.0.0"
   },
   "scripts": {
     "test": "mocha tests/"
